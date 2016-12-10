@@ -21,8 +21,9 @@ EXPOSE 8520
 
 RUN apt-get update
 
-RUN apt-get install -y tar git curl nano wget dialog net-tools build-essential qemu-user-static
+RUN apt-get install -y tar git curl nano wget dialog net-tools build-essential
 RUN apt-get install -y python python-dev python-distribute python-pip
+
 
 RUN mkdir /iottly-device-image-manager
 
@@ -36,7 +37,8 @@ ADD /iottly_device_images_tools /iottly-device-image-manager/iottly_device_image
 
 ENV TERM xterm
 
-RUN git clone https://github.com/iottly/iottly-device-agent-py.git /tmp/iottly-device-agent-py
+# chroot support into raspbian image:
+RUN apt-get install -y qemu-user-static
 
 WORKDIR /iottly-device-image-manager
 CMD ["./run_script.sh", "iottly_device_image_manager/main.py"] 

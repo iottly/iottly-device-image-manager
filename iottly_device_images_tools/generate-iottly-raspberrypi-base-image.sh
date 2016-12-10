@@ -10,6 +10,8 @@ WHERE=/tmp/$FILENAME
 
 PRELOADBINS=ld.so.preload
 
+#apt-get install -y binfmt-support
+
 mkdir $WHERE
 
 STARTSECTOR=$(file $BASEIMAGEPATH|awk 'BEGIN {RS="startsector"} NR >1 {print $0*512}' | tr ' ' "\n" | awk 'BEGIN {max=$0} NF {max=(max>$0)?max:$0} END {print max}')
@@ -28,16 +30,15 @@ echo "$PRELOADBINS commented"
 
 IOTTLYDEVICEAGENT="iottly-device-agent-py-installer"
 mkdir $WHERE/tmp/$IOTTLYDEVICEAGENT
-cp -a "/tmp/iottly-device-agent-py/iottly-device-agent-py-installers/installer-builders/raspberry-pi/payload/." $WHERE/tmp/$IOTTLYDEVICEAGENT
+cp -a "/iottly-device-agent-py-installers/installer-builders/raspberry-pi/payload/." $WHERE/tmp/$IOTTLYDEVICEAGENT
 
 
 echo "#!/bin/bash
 cd /tmp/iottly-device-agent-py-installer
-/bin/bash installer
+./installer
 " > $WHERE/installer
 chmod +x $WHERE/installer
-chroot $WHERE qemu-arm-static "/bin/bash installer"
-chroot $WHERE qemu-arm-static /bin/bash
+chroot $WHERE /installer
 
 cp /tmp/$PRELOADBINS $WHERE/etc/$PRELOADBINS
 rm /tmp/$PRELOADBINS

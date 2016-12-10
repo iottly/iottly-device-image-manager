@@ -1,6 +1,6 @@
 #USAGE: ./configure-wifi-rpi.sh [path to raspbian image] [wifi SSID] [wifi password]
 
-#docker run -t -d --name testmount -v /s3bucket -e AWSACCESSKEYID=AKIAI47OVV46A2I42RLQ -e AWSSECRETACCESSKEY=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 --privileged --entrypoint /usr/bin/s3fs tests3fs -f iottly-images /s3bucket
+#docker run -t -d --name testmount -v /s3bucket -e AWSACCESSKEYID=obscured -e AWSSECRETACCESSKEY=obscured --privileged --entrypoint /usr/bin/s3fs tests3fs -f iottly-images /s3bucket
 
 CURRENT=`pwd`
 PROJECTID=$1
