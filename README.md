@@ -59,11 +59,11 @@ Tornado (in `iottly_device_image_manager`) exposes a REST API, which:
 - takes as input a json containing all the required parameters to be injected into the image
   - project id
   - (optional) board wifi settings (SSID, password)
-- runs the script `customize-iottly-raspberrypi-base-image.sh`
+- asynchronously runs the script `customize-iottly-raspberrypi-base-image.sh`
   - the script is incomplete
   - it must take the parameters incoming from the API call and inject them in the proper places inside the image.
   - here some examples on how to inject parameters into the image: [configure-wifi-rpi.sh](https://github.com/iottly/iottly-device-agent-py/blob/master/iottly-device-tools/configure-wifi-rpi.sh)
-- returns the URL at which the image can be downloaded
+- returns (via websocket with a http request to Iottly WS service) the URL at which the image can be downloaded
 
 ### S3 in production
 For this service to be run in production, all the `iottly_device_images` subfolders have to be mounted from S3.
