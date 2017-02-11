@@ -25,13 +25,14 @@ There are four levels of images:
 - per-board customized images, with specific connection parameters, like wifi SSID (to be defined)
 
 This project has two goals:
+
 1. batch generation of base Iottly customized images for raspberry Pi
   - starting from original raspbian images
 2. on demand (via rest) generation of per-project Iottly images for raspberry Pi
   - starting from the Iottly customized images
 
-## batch generation of base Iottly customized images for raspberry Pi
-(This part is almost finished, just some furhter testing needed)
+## Batch generation of base Iottly customized images for raspberry Pi
+(This part is almost finished, just some further testing needed)
 
 The batch generation of base Iottly customized images is a **lenghty process**.
 
@@ -57,7 +58,7 @@ The script should be run from inside the service container (see 'how to run the 
 Tornado (in `iottly_device_image_manager`) exposes a REST API, which:
 - takes as input a json containing all the required parameters to be injected into the image
   - project id
-  - (optiona) board wifi settings (SSID, password)
+  - (optional) board wifi settings (SSID, password)
 - runs the script `customize-iottly-raspberrypi-base-image.sh`
   - the script is incomplete
   - it must take the parameters incoming from the API call and inject them in the proper places inside the image.
@@ -67,10 +68,11 @@ Tornado (in `iottly_device_image_manager`) exposes a REST API, which:
 ### S3 in production
 For this service to be run in production, all the `iottly_device_images` subfolders have to be mounted from S3.
 Some code for mounting S3 volumes is commented in the [Dockerfile](https://github.com/iottly/iottly-device-image-manager/blob/dev-images-mgmt/Dockerfile)
+
 Is mounting that way the right way to do things?
 - The script `customize-iottly-raspberrypi-base-image.sh` performs a copy of the image, this is quite lenghty on S3 (already tested).
 
-# how to run the service in dev env
+# How to run the service in dev env
 (These are temporary instructions, untill the code won't be on master.)
 
 1. checkout branch `dev-images-mgmt` of this repo (already done if you are reading this readme ;)
