@@ -1,12 +1,22 @@
 #!/bin/bash
 
 FILENAME=$1
+VERSION=$2
+
 
 DEVICEDIR="/iottly-device-image-manager/iottly_device_images/raspberrypi"
-BASEIMAGEDIR=$DEVICEDIR/images
-BASEIMAGEPATH=$BASEIMAGEDIR/$FILENAME
+ORIGINALIMAGEDIR=$DEVICEDIR/original-images
+ORIGINALIMAGEPATH=$ORIGINALIMAGEDIR/$FILENAME
 
-WHERE=/tmp/$FILENAME
+
+IOTTLYCUSTOMIMAGEFILENAME=${FILENAME%.*}_iottly_$VERSION.${FILENAME##*.}
+IOTTLYCUSTOMIMAGEDIR=$DEVICEDIR/iottly-customized-images
+IOTTLYCUSTOMIMAGEPATH=$IOTTLYCUSTOMIMAGEDIR/$IOTTLYCUSTOMIMAGEFILENAME
+
+# this is crytical, moving file in S3 takes a lot of time
+cp $ORIGINALIMAGEPATH $IOTTLYCUSTOMIMAGEPATH
+
+WHERE=/tmp/$IOTTLYCUSTOMIMAGEFILENAME
 
 PRELOADBINS=ld.so.preload
 
@@ -14,11 +24,11 @@ PRELOADBINS=ld.so.preload
 
 mkdir $WHERE
 
-STARTSECTOR=$(file $BASEIMAGEPATH|awk 'BEGIN {RS="startsector"} NR >1 {print $0*512}' | tr ' ' "\n" | awk 'BEGIN {max=$0} NF {max=(max>$0)?max:$0} END {print max}')
+STARTSECTOR=$(file $IOTTLYCUSTOMIMAGEPATH|awk 'BEGIN {RS="startsector"} NR >1 {print $0*512}' | tr ' ' "\n" | awk 'BEGIN {max=$0} NF {max=(max>$0)?max:$0} END {print max}')
 
-echo "mounting image: $FILENAME ..."
-mount -o loop,offset=$STARTSECTOR $BASEIMAGEPATH $WHERE
-echo "mounted image: $FILENAME ..."
+echo "mounting image: $IOTTLYCUSTOMIMAGEFILENAME ..."
+mount -o loop,offset=$STARTSECTOR $IOTTLYCUSTOMIMAGEPATH $WHERE
+echo "mounted image: $IOTTLYCUSTOMIMAGEFILENAME ..."
 
 
 cp /usr/bin/qemu-arm-static $WHERE/usr/bin/

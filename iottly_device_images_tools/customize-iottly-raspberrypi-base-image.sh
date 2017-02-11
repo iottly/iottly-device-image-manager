@@ -7,8 +7,8 @@ PROJECTID=$1
 IMAGENAME=$2
 
 DEVICEDIR="/iottly-device-image-manager/iottly_device_images/raspberrypi"
-BASEIMAGEDIR=$DEVICEDIR/images
-PROJECTIMAGEDIR=$DEVICEDIR/projects/$PROJECTID
+BASEIMAGEDIR=$DEVICEDIR/iottly-customized-images
+PROJECTIMAGEDIR=$DEVICEDIR/project-customized-images/$PROJECTID
 PROJECTIMAGEPATH=$PROJECTIMAGEDIR/$IMAGENAME
 
 mkdir $PROJECTIMAGEDIR
@@ -25,3 +25,7 @@ mount -o loop,offset=$STARTSECTOR $PROJECTIMAGEPATH $WHERE
 echo "mounted image: $FILENAME ..."
 
 cd $WHERE
+
+
+#umount $WHERE
+#echo "iottly image unmounted"

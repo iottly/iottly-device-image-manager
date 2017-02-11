@@ -1,7 +1,12 @@
 *.pyc
-iottly_device_images/raspberrypi/projects/**/*.zip
-iottly_device_images/raspberrypi/projects/**/*.img
 
-iottly_device_images/raspberrypi/images/**/*.zip
-iottly_device_images/raspberrypi/images/**/*.img
+iottly_device_images/raspberrypi/original-images/**/*.zip
+iottly_device_images/raspberrypi/original-images/**/*.img
+
+iottly_device_images/raspberrypi/iottly-customized-images/**/*.zip
+iottly_device_images/raspberrypi/iottly-customized-images/**/*.img
+
+iottly_device_images/raspberrypi/project-customized-images/**/*.zip
+iottly_device_images/raspberrypi/project-customized-images/**/*.img
+
 
