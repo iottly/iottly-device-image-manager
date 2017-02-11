@@ -1,3 +1,7 @@
 *.pyc
-iottly_device_images/raspberrypi/projects/*
-iottly_device_images/raspberrypi/images/*
+iottly_device_images/raspberrypi/projects/**/*.zip
+iottly_device_images/raspberrypi/projects/**/*.img
+
+iottly_device_images/raspberrypi/images/**/*.zip
+iottly_device_images/raspberrypi/images/**/*.img
+
