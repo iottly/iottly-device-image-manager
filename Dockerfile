@@ -14,6 +14,20 @@
 # limitations under the License.
 # 
 
+
+######### mount S3 bucket:
+# FROM ubuntu:latest
+# 
+# RUN apt-get update -qq
+# RUN apt-get install -y build-essential libfuse-dev fuse libcurl4-openssl-dev libxml2-dev mime-support automake libtool wget tar unzip
+# 
+# RUN wget https://github.com/s3fs-fuse/s3fs-fuse/archive/v1.80.tar.gz -O /usr/src/v1.80.tar.gz
+# RUN tar xvz -C /usr/src -f /usr/src/v1.80.tar.gz
+# RUN cd /usr/src/s3fs-fuse-1.80 && ./autogen.sh && ./configure --prefix=/usr && make && make install
+# 
+# RUN mkdir /s3bucket
+
+
 FROM ubuntu:latest
 MAINTAINER iottly
 
